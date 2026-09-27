@@ -1,0 +1,29 @@
+{
+  "chains": [
+    {
+      "chainId": 1,
+      "address": "",
+      "deploymentBlock": "0",
+      "rpcUrl": "https://ethereum-rpc.publicnode.com"
+    },
+    {
+      "chainId": 8453,
+      "address": "",
+      "deploymentBlock": "0",
+      "rpcUrl": "https://mainnet.base.org"
+    }
+  ],
+  "mainnetRpcUrl": "https://ethereum-rpc.publicnode.com",
+  "gate": {
+    "seatAddress": "0x0000ec93127baa929e58e97dd0095a2bfb38ec1d",
+    "imdAddress": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
+    "stakedAddress": "0x9Efa934D9fAd4AE28c998a40195646b965a97247",
+    "minSeats": "1",
+    "minTokensExclusive": "100",
+    "imdDecimals": 18,
+    "stakedDecimals": 18
+  },
+  "walletConnectProjectId": "",
+  "scanChunkSize": 2000,
+  "pollIntervalMs": 30000
+}

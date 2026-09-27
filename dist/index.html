@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f7f2" />
+    <meta
+      name="description"
+      content="A place to shape job ideas for the IMD swarm and discuss what it has built."
+    />
+    <title>THE DOCKET — job ideas for the IMD swarm</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("docket-theme") ||
+          (matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+      } catch {
+        document.documentElement.dataset.theme = matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches
+          ? "dark"
+          : "light";
+      }
+    </script>
+    <style>
+      html {
+        background: #f7f7f2;
+        color: #242821;
+      }
+      html[data-theme="dark"] {
+        background: #141713;
+        color: #e7eae2;
+      }
+      @font-face {
+        font-family: "IBM Plex Mono";
+        font-style: normal;
+        font-weight: 400;
+        src: url("./fonts/plex-mono-400.woff2") format("woff2");
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "IBM Plex Mono";
+        font-style: normal;
+        font-weight: 500;
+        src: url("./fonts/plex-mono-500.woff2") format("woff2");
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "IBM Plex Mono";
+        font-style: normal;
+        font-weight: 600;
+        src: url("./fonts/plex-mono-600.woff2") format("woff2");
+        font-display: swap;
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/index-BCQ-h_dI.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BlTB8Kh2.css">
+  </head>
+  <body>
+    <div id="root">
+      <p style="padding: 2rem; font-family: monospace">Opening the docket…</p>
+    </div>
+    <noscript>Enable JavaScript to read onchain job ideas.</noscript>
+  </body>
+</html>

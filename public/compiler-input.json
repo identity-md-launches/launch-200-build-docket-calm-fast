@@ -1,0 +1,27 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "src/Docket.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.26;\n\n/// @notice A permissionless board whose text is stored only in transaction logs.\ncontract Docket {\n    error BadLength();\n    error UnknownIdea();\n    error UnknownComment();\n    error AlreadyUpvoted();\n\n    event IdeaCreated(uint256 indexed ideaId, address indexed author, string title, string body);\n    event CommentPosted(uint256 indexed ideaId, uint256 indexed commentId, address indexed author, string body);\n    event Upvoted(uint256 indexed ideaId, uint256 indexed commentId, address indexed voter);\n\n    uint256 public ideaCount;\n    mapping(uint256 ideaId => uint256 count) public commentCount;\n    mapping(uint256 ideaId => mapping(uint256 commentId => uint256 count)) public upvotes;\n    mapping(bytes32 voteKey => bool voted) private _hasUpvoted;\n\n    /// @notice Publish an idea with a 1-120 byte title and a 1-4000 byte body.\n    function createIdea(string calldata title, string calldata body) external returns (uint256 ideaId) {\n        if (bytes(title).length == 0 || bytes(title).length > 120) revert BadLength();\n        if (bytes(body).length == 0 || bytes(body).length > 4000) revert BadLength();\n        ideaId = ++ideaCount;\n        emit IdeaCreated(ideaId, msg.sender, title, body);\n    }\n\n    /// @notice Publish a 1-2000 byte comment on an existing idea.\n    function comment(uint256 ideaId, string calldata body) external returns (uint256 commentId) {\n        if (ideaId == 0 || ideaId > ideaCount) revert UnknownIdea();\n        if (bytes(body).length == 0 || bytes(body).length > 2000) revert BadLength();\n        commentId = ++commentCount[ideaId];\n        emit CommentPosted(ideaId, commentId, msg.sender, body);\n    }\n\n    /// @notice Upvote an idea (commentId zero) or one of its existing comments once per caller.\n    function upvote(uint256 ideaId, uint256 commentId) external {\n        // A positive comment count already proves its idea exists. Avoid a second cold read\n        // on successful comment votes; still distinguish unknown ideas from unknown comments.\n        if (commentId == 0) {\n            if (ideaId == 0 || ideaId > ideaCount) revert UnknownIdea();\n        } else if (commentId > commentCount[ideaId]) {\n            if (ideaId == 0 || ideaId > ideaCount) revert UnknownIdea();\n            revert UnknownComment();\n        }\n        bytes32 key = keccak256(abi.encode(ideaId, commentId, msg.sender));\n        if (_hasUpvoted[key]) revert AlreadyUpvoted();\n        _hasUpvoted[key] = true;\n        ++upvotes[ideaId][commentId];\n        emit Upvoted(ideaId, commentId, msg.sender);\n    }\n\n    /// @notice Whether voter already upvoted this target; false for nonexistent targets.\n    function hasUpvoted(uint256 ideaId, uint256 commentId, address voter) external view returns (bool) {\n        return _hasUpvoted[keccak256(abi.encode(ideaId, commentId, voter))];\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "cancun",
+    "metadata": {
+      "bytecodeHash": "none"
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode.object",
+          "evm.deployedBytecode.object"
+        ]
+      }
+    }
+  }
+}

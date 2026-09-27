@@ -1,0 +1,31 @@
+{
+  "name": "the-docket",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "node scripts/toolchain.mjs install",
+    "build": "node scripts/toolchain.mjs build",
+    "typecheck": "node scripts/toolchain.mjs typecheck",
+    "preview": "node scripts/toolchain.mjs preview",
+    "test": "node scripts/toolchain.mjs test",
+    "verify:contract": "node scripts/verify-contract.mjs"
+  },
+  "dependencies": {
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "viem": "2.37.3",
+    "@walletconnect/ethereum-provider": "2.25.0",
+    "qrcode": "1.5.4"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.13",
+    "@types/react-dom": "19.1.9",
+    "typescript": "5.9.2",
+    "vite": "7.1.7",
+    "playwright": "1.55.1",
+    "@axe-core/playwright": "4.10.2",
+    "@types/qrcode": "1.5.5",
+    "prettier": "3.6.2"
+  }
+}
